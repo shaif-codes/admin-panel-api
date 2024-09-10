@@ -21,7 +21,7 @@ router.post('/user', authenticateToken, checkPermission('create-users'), createU
 router.get('/user', authenticateToken, checkPermission('view-users'), getUsers);
 
 // Only Admins can get, update, or delete users by ID
-router.get('/user/:id', authenticateToken, checkPermission('view-users'), getUserById);
+router.get('/user/:id', authenticateToken, checkPermission('view-users-by-id'), getUserById);
 router.put('/user/:id', authenticateToken, checkPermission('edit-users'), updateUser);
 router.delete('/user/:id', authenticateToken, checkPermission('delete-users'), softDeleteUser);
 router.patch('/user/restore/:id', authenticateToken, checkPermission('restore-users'), restoreUser);
