@@ -1,50 +1,53 @@
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../configs/dbConfig');
+const Role = require('./Role'); // Assuming you have the Role model in a separate file
 
-// Define the User model
 const User = sequelize.define('User', {
-  id: {
-    type: DataTypes.UUID,
-    defaultValue: DataTypes.UUIDV4,
-    primaryKey: true,
-    allowNull: false,
-  },
-  username: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  email: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true,
-    validate: {
-      isEmail: true,
+    id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        primaryKey: true,
+        allowNull: false
     },
-  },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  roleId: {
-    type: DataTypes.UUID,
-    allowNull: false,
-    references: {
-      model: 'Roles', // Make sure the Role model is created and synced
-      key: 'id',
+    username: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+            notEmpty: true,
+        }
     },
-  },
-  createdAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: DataTypes.NOW,
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: DataTypes.NOW,
-  },
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+        validate: {
+            isEmail: true,
+            notEmpty: true,
+        }
+    },
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    roleId: {
+        type: DataTypes.UUID,
+        allowNull: false,
+        references: {
+            model: Role, // Reference to the Role model
+            key: 'id'
+        }
+    },
+    createdAt: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,  
+    },
+    updatedAt: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
+    },
 }, {
-  timestamps: true, // Enable automatic createdAt and updatedAt fields
+    tableName: 'users', // Table name in the database
+    timestamps: true, // Automatically adds createdAt and updatedAt fields
 });
 
 module.exports = User;

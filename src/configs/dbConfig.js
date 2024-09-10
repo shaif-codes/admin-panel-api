@@ -1,12 +1,13 @@
 const { Sequelize } = require('sequelize');
 const dotenv = require('dotenv');
+const pg = require('pg');
 dotenv.config();
 
 const DATABASE_URL = process.env.DATABASE_URL;
 
 const sequelize = new Sequelize(DATABASE_URL, {
   dialect: 'postgres',  // Explicitly define the dialect here
-  logging: false,  // Disable logging if you prefer
+  dialectModule: pg
 });
 
 const connectDB = async () => {
