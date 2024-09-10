@@ -19,7 +19,7 @@ const authenticateToken = (req, res, next) => {
 
 const isAdmin = (req, res, next) => {
   console.log('req.user :', req.user);
-  if (req.user.role !== 'Admin') {
+  if (req.user.role.name !== 'Admin') {
     return res.status(403).json({ message: 'Access Forbidden: Admins only' });
   }
   next();

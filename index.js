@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const authRoute = require('./src/routes/authRoute');
 const User = require('./src/models/User');
 const cookieParser = require('cookie-parser');
-
+const userRoute = require('./src/routes/userRoute');
 
 dotenv.config();
 const app = express();
@@ -26,6 +26,7 @@ app.get('/', (req, res) => {
 });
   
 app.use('/auth', authRoute); // Your auth routes
+app.use('/users', userRoute); // Your user routes
  
 // Connect to the database and start the server
 sequelize.sync({ alter: true }).then(() => {

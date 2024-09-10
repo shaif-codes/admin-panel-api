@@ -1,7 +1,7 @@
 const User = require('../models/User');
 const Role = require('../models/Role');
 const bcrypt = require('bcrypt');
-const { Op, Sequelize } = require('sequelize');
+// const { Op, Sequelize } = require('sequelize');
 const { generateToken } = require('../utils/jwtUtils.js');
 
 const signup = async (req, res) => {
@@ -14,15 +14,16 @@ const signup = async (req, res) => {
 
         const { username, email, password } = req.body;
         const hashedPassword = await bcrypt.hash(password, 10);
+        const role = await Role.findOne({ where: { name: 'Admin' } });
 
         const newUser = await User.create({
             username,
             email,
             password: hashedPassword,
-            roleId: 'admin'
+            roleId: role.id 
         });
 
-        const token = generateToken(newUser.id);
+        const token = generateToken(newUser.id, role);
 
         res.status(201).json({
             message: 'Admin created successfully',
@@ -59,7 +60,7 @@ const login = async (req, res) => {
         const { username, password } = req.body;
 
         const user = await User.findOne({ where: { username } });
-        console.log('user :', user);
+        // console.log('user :', user);
         if (!user) {
             return res.status(401).json({ error: 'Invalid credentials' });
         }
@@ -70,7 +71,7 @@ const login = async (req, res) => {
         }
         const role = await Role.findOne({ where: { id: user.roleId } });
         console.log('role :', role); 
-        const token = generateToken(user.id, role.name);
+        const token = generateToken(user.id, role);
         res.cookie('token', token, {
             httpOnly: true, // Ensures the cookie is not accessible via JavaScript
             sameSite: 'Strict', // Prevents the cookie from being sent with cross-site requests
