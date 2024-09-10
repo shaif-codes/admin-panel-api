@@ -35,7 +35,12 @@ sequelize.sync({ alter: true }).then(() => {
     console.log('An error occurred: ', err);
     }
 );
-
+// sequelize.sync({ force: true }).then(() => {
+//   console.log('Database synced');
+//   }).catch((err) => {
+//   console.log('An error occurred: ', err);
+//   }
+// );
 
  
 connectDB().then(() => {  

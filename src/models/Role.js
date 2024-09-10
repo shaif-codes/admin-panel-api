@@ -9,7 +9,7 @@ const Role = sequelize.define('Role', {
         allowNull: false,
     },
     name: {
-        type: DataTypes.ENUM('Admin', 'Manager', 'Employee'),
+        type: DataTypes.ENUM('Admin', 'Manager', 'Employee', 'User'), // Only these values are allowed
         allowNull: false,
     },
     permissions: {

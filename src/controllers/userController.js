@@ -107,6 +107,42 @@ const permanentlyDeleteUser = async (req, res) => {
   }
 };
 
+// Assign Role to User
+const assignRoleToUser = async (req, res) => {
+    try {
+      const { roleId } = req.body;
+      const userId = req.params.id;
+  
+      const user = await User.findByPk(userId);
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+  
+      await user.update({ roleId });
+      res.status(200).json({ message: `Role assigned successfully to user with ID: ${userId}`, user });
+    } catch (error) {
+      res.status(500).json({ error: 'Error assigning role', message: error.message });
+    }
+  };
+  
+  // Revoke Role from User (Set roleId to 'user' or a default role)
+  const revokeRoleFromUser = async (req, res) => {
+    try {
+      const userId = req.params.id;
+      const defaultRole = 'User'; // You can adjust this to your default role
+  
+      const user = await User.findByPk(userId);
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+  
+      await user.update({ roleId: defaultRole });
+      res.status(200).json({ message: `Role revoked successfully from user with ID: ${userId}`, user });
+    } catch (error) {
+      res.status(500).json({ error: 'Error revoking role', message: error.message });
+    }
+  };
+
 module.exports = {
   createUser,
   getUsers,
@@ -115,4 +151,6 @@ module.exports = {
   softDeleteUser,
   restoreUser,
   permanentlyDeleteUser,
+  assignRoleToUser,
+  revokeRoleFromUser,
 };
