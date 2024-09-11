@@ -108,28 +108,28 @@ Your server should now be running on the specified port.
 
 ### User Management Routes
 
-- **POST** `/users`: Create a new user.
-- **GET** `/users`: Get a list of all users.
-- **GET** `/users/:id`: Get a specific user by ID.
-- **PUT** `/users/:id`: Update a user by ID.
-- **DELETE** `/users/:id`: Soft delete a user.
-- **PATCH** `/users/restore/:id`: Restore a soft-deleted user.
-- **DELETE** `/users/permanent/:id`: Permanently delete a user.
+- **POST** `/users/user`: Create a new user.
+- **GET** `/users/user`: Get a list of all users.
+- **GET** `/users/user/:id`: Get a specific user by ID.
+- **PUT** `/users/user/:id`: Update a user by ID.
+- **DELETE** `/users/user/:id`: Soft delete a user.
+- **PATCH** `/users/user/restore/:id`: Restore a soft-deleted user.
+- **DELETE** `/users/user/permanent/:id`: Permanently delete a user.
 
 ### Role Management Routes
 
-- **POST** `/users/:id/assign-role`: Assign a role to a user.
-- **POST** `/users/:id/revoke-role`: Revoke a role from a user.
+- **POST** `/users/user/assign-role/:id`: Assign a role to a user.
+- **POST** `/users/user/revoke-role/:id`: Revoke a role from a user.
 
 ### Project Management Routes
 
-- **POST** `/project`: Create a new project (Admin only).
-- **GET** `/project`: Retrieve all projects (accessible by all roles).
-- **GET** `/project/:id`: Retrieve a specific project by ID (accessible by all roles).
-- **PUT** `/project/:id`: Update a project by ID (Admin only).
-- **DELETE** `/project/:id`: Soft delete a project (Admin only).
-- **DELETE** `/project/permanent/:id`: Permanently delete a project (Admin only, optional).
-- **PATCH** `/project/restore/:id`: Restore a soft-deleted project (Admin only).
+- **POST** `projects/project`: Create a new project (Admin only).
+- **GET** `projects/project`: Retrieve all projects (accessible by all roles).
+- **GET** `projects/project/:id`: Retrieve a specific project by ID (accessible by all roles).
+- **PUT** `projects/project/:id`: Update a project by ID (Admin only).
+- **DELETE** `projects/project/:id`: Soft delete a project (Admin only).
+- **DELETE** `projects/project/permanent/:id`: Permanently delete a project (Admin only, optional).
+- **PATCH** `projects/project/restore/:id`: Restore a soft-deleted project (Admin only).
 
 ### Audit Logs Routes
 
