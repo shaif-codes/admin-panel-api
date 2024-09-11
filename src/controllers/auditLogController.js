@@ -18,15 +18,16 @@ const getAuditLogs = async (req, res) => {
     }
 };
 
-const createAuditLog = async (action, description, userId) => {
+const createAuditLog = async (action, performedBy, targetResource) => {
     try {
-        await AuditLog.create({
-            action,
-            description,
-            performedBy: userId, // Reference to the user who performed the action
-        });
+      // Create a new audit log entry
+      await AuditLog.create({
+        action,
+        performedBy, // UUID of the user performing the action
+        targetResource, // UUID of the resource (e.g., user, project, etc.) being acted upon
+      });
     } catch (error) {
-        console.error('Error creating audit log:', error.message);
+      console.error('Error creating audit log:', error.message);
     }
 };
 

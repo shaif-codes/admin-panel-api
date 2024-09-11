@@ -25,7 +25,7 @@ const AuditLog = sequelize.define('AuditLog', {
         defaultValue: DataTypes.NOW,
     },
     targetResource: {
-        type: DataTypes.UUID,
+        type: DataTypes.STRING,
         allowNull: false,
     },
 }, {
