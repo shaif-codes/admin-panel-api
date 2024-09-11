@@ -26,7 +26,7 @@ router.put('/user/:id', authenticateToken, checkPermission('edit-users'), update
 router.delete('/user/:id', authenticateToken, checkPermission('delete-users'), softDeleteUser);
 router.patch('/user/restore/:id', authenticateToken, checkPermission('restore-users'), restoreUser);
 router.delete('/user/permanent/:id', authenticateToken, checkPermission('delete-users'), permanentlyDeleteUser);
-router.patch('/user/role/:id', authenticateToken, checkPermission('manage-roles'), assignRoleToUser);
-router.patch('/user/revoke/:id', authenticateToken, checkPermission('manage-roles'), revokeRoleFromUser);
+router.patch('/user/assign-role/:id', authenticateToken, checkPermission('manage-roles'), assignRoleToUser);
+router.patch('/user/revoke-role/:id', authenticateToken, checkPermission('manage-roles'), revokeRoleFromUser);
 
 module.exports = router;
