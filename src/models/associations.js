@@ -15,24 +15,12 @@ User.belongsTo(Role, {
   });
 
 
-// User -> Project (One-to-Many for createdBy relationship)
-User.hasMany(Project, {
-    foreignKey: 'createdBy',
-    as: 'createdProjects',
-    onDelete: 'SET NULL', // If a user is deleted, set the createdBy field in Project to NULL
-  });
-  Project.belongsTo(User, {
-    foreignKey: 'createdBy',
-    as: 'creator',
-});
-
-// Project -> User (Many-to-Many for assignedTo relationship)
-Project.belongsToMany(User, {
+  Project.belongsToMany(User, {
     through: 'UserProjects', // A junction table to represent many-to-many relationship
     as: 'assignedUsers',
     foreignKey: 'projectId',
-  });
-  User.belongsToMany(Project, {
+});
+User.belongsToMany(Project, {
     through: 'UserProjects', // A junction table to represent many-to-many relationship
     as: 'assignedProjects',
     foreignKey: 'userId',
@@ -43,12 +31,10 @@ User.hasMany(AuditLog, {
     foreignKey: 'performedBy',
     as: 'auditLogs',
     onDelete: 'SET NULL', // If a user is deleted, set the performedBy field in AuditLog to NULL
-  });
-  AuditLog.belongsTo(User, {
+});
+AuditLog.belongsTo(User, {
     foreignKey: 'performedBy',
     as: 'performer',
-  });
+});
 
-
-// module.exports = { User, Role, Project};
 module.exports = { User, Role, Project, AuditLog };

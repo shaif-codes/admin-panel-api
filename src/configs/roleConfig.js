@@ -10,6 +10,7 @@ const insertRoles = async () => {
         "restore-users",
         "view-users",
         "view-users-by-id",
+        "create-projects",
         "view-projects",
         "edit-projects",
         "delete-projects",

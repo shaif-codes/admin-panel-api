@@ -7,6 +7,8 @@ const authRoute = require('./src/routes/authRoute');
 const User = require('./src/models/User');
 const cookieParser = require('cookie-parser');
 const userRoute = require('./src/routes/userRoute');
+const projectRoute = require('./src/routes/projectRoute');
+const auditLogRoute = require('./src/routes/auditLogRoute');
 
 dotenv.config();
 const app = express();
@@ -27,7 +29,9 @@ app.get('/', (req, res) => {
   
 app.use('/auth', authRoute); // Your auth routes
 app.use('/users', userRoute); // Your user routes
- 
+app.use('/projects', projectRoute); // Your project routes
+app.use('/audit-logs', auditLogRoute); // Your audit log routes 
+
 // Connect to the database and start the server
 sequelize.sync({ alter: true }).then(() => {
     console.log('Database synced');
