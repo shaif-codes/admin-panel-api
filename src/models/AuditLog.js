@@ -28,6 +28,10 @@ const AuditLog = sequelize.define('AuditLog', {
         type: DataTypes.STRING,
         allowNull: false,
     },
+    description: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
 }, {
     timestamps: false, // Disable automatic createdAt and updatedAt
     tableName: 'audit_logs', // Table name in the database
