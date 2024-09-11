@@ -118,8 +118,8 @@ Your server should now be running on the specified port.
 
 ### Role Management Routes
 
-- **POST** `/users/user/assign-role/:id`: Assign a role to a user.
-- **POST** `/users/user/revoke-role/:id`: Revoke a role from a user.
+- **PATCH** `/users/user/assign-role/:id`: Assign a role to a user.
+- **PATCH** `/users/user/revoke-role/:id`: Revoke a role from a user.
 
 ### Project Management Routes
 
