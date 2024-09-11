@@ -27,7 +27,7 @@ const createUser = async (req, res) => {
         res.status(201).json({ message: 'User created successfully', user: newUser });
     } catch (error) {
         res.status(500).json({ error: 'Error creating user', message: error.message });
-        await createAuditLog('CREATE_USER', req.user.id, 'Error creating user', `${req.user.id}`);
+        await createAuditLog('CREATE_USER', req.user.id, `Error creating user:\n ${error.message}`, `${req.user.id}`);
     }
 };
 
@@ -45,7 +45,7 @@ const getUsers = async (req, res) => {
 
     } catch (error) {
         res.status(500).json({ error: 'Error fetching users', message: error.message });
-        await createAuditLog("VIEW_ALL_USERS", req.user.id, 'Error fetching users', "ALL_USERS");
+        await createAuditLog("VIEW_ALL_USERS", req.user.id, `Error fetching users:\n ${error.message}`, "ALL_USERS");
     }
 };
 
@@ -62,7 +62,7 @@ const getUserById = async (req, res) => {
         await createAuditLog("VIEW_USER", req.user.id, `User with ID: ${req.params.id} fetched`, `${req.params.id}`);
     } catch (error) {
         res.status(500).json({ error: 'Error fetching user', message: error.message });
-        await createAuditLog("VIEW_USER", req.user.id, `Error fetching user with ID: ${req.params.id}`, `${req.params.id}`);
+        await createAuditLog("VIEW_USER", req.user.id, `Error fetching user with ID: ${req.params.id}:\n ${error.message}`, `${req.params.id}`);
     }
 };
 
@@ -84,7 +84,7 @@ const updateUser = async (req, res) => {
         await createAuditLog("UPDATE_USER", req.user.id, `User with ID: ${req.params.id} updated`, `${req.params.id}`);
     } catch (error) {
         res.status(500).json({ error: 'Error updating user', message: error.message });
-        await createAuditLog("UPDATE_USER", req.user.id, `Error updating user with ID: ${req.params.id}`, `${req.params.id}`);
+        await createAuditLog("UPDATE_USER", req.user.id, `Error updating user with ID: ${req.params.id}\n ${error.message}`, `${req.params.id}`);
     }
 };
 
@@ -105,7 +105,7 @@ const softDeleteUser = async (req, res) => {
         await createAuditLog("DELETE_USER", req.user.id, `User with ID: ${req.params.id} soft deleted`, `${req.params.id}`);
     } catch (error) {
         res.status(500).json({ error: 'Error soft deleting user', message: error.message });
-        await createAuditLog("DELETE_USER", req.user.id, `Error soft deleting user with ID: ${req.params.id}`, `${req.params.id}`);
+        await createAuditLog("DELETE_USER", req.user.id, `Error soft deleting user with ID: ${req.params.id}:\n ${error.message}`, `${req.params.id}`);
     }
 };
 
@@ -127,7 +127,7 @@ const restoreUser = async (req, res) => {
 
     } catch (error) {
         res.status(500).json({ error: 'Error restoring user', message: error.message });
-        await createAuditLog("RESTORE_USER", req.user.id, `Error restoring user with ID: ${req.params.id}`, `${req.params.id}`);
+        await createAuditLog("RESTORE_USER", req.user.id, `Error restoring user with ID: ${req.params.id}:\n ${error.message}`, `${req.params.id}`);
     }
 };
 
@@ -145,7 +145,7 @@ const permanentlyDeleteUser = async (req, res) => {
         await createAuditLog("DELETE_USER", req.user.id, `User with ID: ${req.params.id} permanently deleted`, `${req.params.id}`);
     } catch (error) {
         res.status(500).json({ error: 'Error permanently deleting user', message: error.message });
-        await createAuditLog("DELETE_USER", req.user.id, `Error permanently deleting user with ID: ${req.params.id}`, `${req.params.id}`);
+        await createAuditLog("DELETE_USER", req.user.id, `Error permanently deleting user with ID: ${req.params.id}:\n ${error.message}`, `${req.params.id}`);
     }
 };
 
@@ -168,7 +168,7 @@ const assignRoleToUser = async (req, res) => {
         await createAuditLog("ASSIGN_ROLE", req.user.id, `Role with name: ${role} assigned to user with ID: ${userId}`, `${userId}`);
     } catch (error) {
         res.status(500).json({ error: 'Error assigning role', message: error.message });
-        await createAuditLog("ASSIGN_ROLE", req.user.id, `Error assigning role to user with ID: ${userId}`, `${userId}`);
+        await createAuditLog("ASSIGN_ROLE", req.user.id, `Error assigning role to user with ID: ${req.user.id}:\n `, `${userId}`);
     }
 };
 
@@ -190,7 +190,7 @@ const revokeRoleFromUser = async (req, res) => {
         await createAuditLog("REVOKE_ROLE", req.user.id, `Role revoked from user with ID: ${userId}`, `${userId}`);
     } catch (error) {
         res.status(500).json({ error: 'Error revoking role', message: error.message });
-        await createAuditLog("REVOKE_ROLE", req.user.id, `Error revoking role from user with ID: ${userId}`, `${userId}`);
+        await createAuditLog("REVOKE_ROLE", req.user.id, `Error revoking role from user with ID: ${userId}:\n ${error.message}`, `${userId}`);
     }
 };
 
